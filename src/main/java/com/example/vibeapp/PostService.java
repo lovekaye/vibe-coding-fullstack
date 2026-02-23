@@ -29,7 +29,9 @@ public class PostService {
     }
 
     public List<Post> getAllPosts() {
-        return postRepository.findAll();
+        List<Post> posts = postRepository.findAll();
+        java.util.Collections.reverse(posts);
+        return posts;
     }
 
     public Post getPostByNo(Long no) {
