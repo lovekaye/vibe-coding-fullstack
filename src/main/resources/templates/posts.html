@@ -50,8 +50,10 @@
                     <tr th:each="post : ${posts}" class="hover:bg-slate-700/30 transition-colors">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300" th:text="${post.no}">
                             1</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-white"
-                            th:text="${post.title}">Post Title</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-white">
+                            <a th:href="@{/posts/{no}(no=${post.no})}" th:text="${post.title}"
+                                class="hover:text-indigo-400 transition-colors">Post Title</a>
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400"
                             th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-01</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-400" th:text="${post.views}">0</td>
