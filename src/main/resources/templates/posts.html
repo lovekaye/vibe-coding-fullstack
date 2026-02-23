@@ -23,9 +23,15 @@
 
 <body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-5xl mx-auto">
-        <div class="mb-12 text-center">
+        <div class="mb-12 text-center relative">
             <h1 class="text-4xl font-extrabold tracking-tight text-white mb-4">Board Posts</h1>
-            <p class="text-lg text-slate-400">Manage and view all your community discussions.</p>
+            <p class="text-lg text-slate-400 mb-8">Manage and view all your community discussions.</p>
+            <div class="flex justify-end">
+                <a href="/posts/new"
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5">
+                    + Write New Post
+                </a>
+            </div>
         </div>
 
         <div class="glass-card shadow-2xl rounded-2xl overflow-hidden">

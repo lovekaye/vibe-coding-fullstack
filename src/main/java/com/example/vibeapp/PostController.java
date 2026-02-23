@@ -24,6 +24,18 @@ public class PostController {
         return "posts";
     }
 
+    @GetMapping("/posts/new")
+    public String newForm() {
+        return "post_new_form";
+    }
+
+    @PostMapping("/posts/add")
+    public String add(@RequestParam("title") String title, 
+                      @RequestParam("content") String content) {
+        postService.savePost(title, content);
+        return "redirect:/posts";
+    }
+
     @GetMapping("/posts/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
         Post post = postService.getPostByNo(no);
