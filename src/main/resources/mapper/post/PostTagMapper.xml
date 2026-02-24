@@ -9,6 +9,12 @@
         VALUES (#{postNo}, #{tagName})
     </insert>
 
+    <select id="findAllByPostNo" resultType="com.example.vibeapp.post.PostTag">
+        SELECT ID, POST_NO, TAG_NAME
+        FROM POST_TAGS
+        WHERE POST_NO = #{postNo}
+    </select>
+
     <delete id="deleteById">
         DELETE FROM POST_TAGS
         WHERE ID = #{id}

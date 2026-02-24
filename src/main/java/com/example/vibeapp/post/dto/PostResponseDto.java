@@ -9,14 +9,16 @@ public record PostResponseDto(
         String content,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Integer views) {
-    public static PostResponseDto from(Post post) {
+        Integer views,
+        java.util.List<String> tags) {
+    public static PostResponseDto from(Post post, java.util.List<String> tags) {
         return new PostResponseDto(
                 post.getNo(),
                 post.getTitle(),
                 post.getContent(),
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
-                post.getViews());
+                post.getViews(),
+                tags);
     }
 }

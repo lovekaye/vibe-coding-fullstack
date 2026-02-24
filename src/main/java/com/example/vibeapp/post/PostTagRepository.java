@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 public interface PostTagRepository {
     void save(PostTag postTag);
 
+    java.util.List<PostTag> findAllByPostNo(Long postNo);
+
     void deleteById(Long id);
 
     void deleteByPostNo(Long postNo);

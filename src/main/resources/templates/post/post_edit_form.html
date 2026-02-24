@@ -77,6 +77,14 @@
                     </p>
                 </div>
 
+                <!-- Tags -->
+                <div>
+                    <label for="tags" class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">태그
+                        (쉼표로 구분)</label>
+                    <input type="text" id="tags" th:field="*{tags}" placeholder="예: Spring, Java, 웹"
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                </div>
+
                 <!-- Created At (read-only) -->
                 <div>
                     <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">생성일</label>

@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final PostTagRepository postTagRepository;
 
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, PostTagRepository postTagRepository) {
         this.postRepository = postRepository;
+        this.postTagRepository = postTagRepository;
     }
 
     public List<PostListDto> getPosts(int page, int size) {
@@ -36,7 +38,12 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         post.setViews(post.getViews() + 1);
         postRepository.update(post);
-        return PostResponseDto.from(post);
+
+        List<String> tags = postTagRepository.findAllByPostNo(no).stream()
+                .map(PostTag::getTagName)
+                .collect(Collectors.toList());
+
+        return PostResponseDto.from(post, tags);
     }
 
     public void update(Long no, PostUpdateDto dto) {
@@ -46,6 +53,10 @@ public class PostService {
         post.setContent(dto.content());
         post.setUpdatedAt(LocalDateTime.now());
         postRepository.update(post);
+
+        // Update tags: Delete all and re-insert
+        postTagRepository.deleteByPostNo(no);
+        saveTags(no, dto.tags());
     }
 
     public void save(PostCreateDto dto) {
@@ -54,6 +65,22 @@ public class PostService {
         post.setUpdatedAt(null);
         post.setViews(0);
         postRepository.save(post);
+
+        saveTags(post.getNo(), dto.tags());
+    }
+
+    private void saveTags(Long postNo, String tagsStr) {
+        if (tagsStr == null || tagsStr.isBlank()) {
+            return;
+        }
+
+        String[] tags = tagsStr.split(",");
+        for (String tag : tags) {
+            String trimmedTag = tag.trim();
+            if (!trimmedTag.isEmpty()) {
+                postTagRepository.save(new PostTag(null, postNo, trimmedTag));
+            }
+        }
     }
 
     public void delete(Long no) {
