@@ -15,7 +15,7 @@ spring:
       mode: always
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.example.vibeapp.post
   configuration:
     map-underscore-to-camel-case: true
