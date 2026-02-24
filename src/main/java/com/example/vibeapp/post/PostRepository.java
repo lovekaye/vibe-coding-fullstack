@@ -25,10 +25,6 @@ public class PostRepository {
         }
     }
 
-    public List<Post> findAll() {
-        return new ArrayList<>(posts);
-    }
-
     public java.util.Optional<Post> findByNo(Long no) {
         return posts.stream()
                 .filter(post -> post.getNo().equals(no))
@@ -39,11 +35,11 @@ public class PostRepository {
         posts.removeIf(p -> p.getNo().equals(post.getNo()));
     }
 
-    public int getTotalCount() {
+    public int count() {
         return posts.size();
     }
 
-    public List<Post> findPage(int page, int size) {
+    public List<Post> findAll(int page, int size) {
         List<Post> reversed = new ArrayList<>(posts);
         java.util.Collections.reverse(reversed);
 

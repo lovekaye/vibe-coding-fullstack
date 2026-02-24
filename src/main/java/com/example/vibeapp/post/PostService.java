@@ -27,29 +27,23 @@ public class PostService {
         }
     }
 
-    public List<Post> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
-        java.util.Collections.reverse(posts);
-        return posts;
-    }
-
-    public List<Post> getPostsPage(int page, int size) {
-        return postRepository.findPage(page, size);
+    public List<Post> getPosts(int page, int size) {
+        return postRepository.findAll(page, size);
     }
 
     public int getTotalPages(int size) {
-        int total = postRepository.getTotalCount();
+        int total = postRepository.count();
         return (int) Math.ceil((double) total / size);
     }
 
-    public Post getPostByNo(Long no) {
+    public Post getPost(Long no) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         post.setViews(post.getViews() + 1);
         return post;
     }
 
-    public void updatePost(Long no, String title, String content) {
+    public void update(Long no, String title, String content) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         post.setTitle(title);
@@ -57,7 +51,7 @@ public class PostService {
         post.setUpdatedAt(LocalDateTime.now());
     }
 
-    public void savePost(String title, String content) {
+    public void save(String title, String content) {
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
@@ -67,7 +61,7 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public void deletePost(Long no) {
+    public void delete(Long no) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         postRepository.delete(post);

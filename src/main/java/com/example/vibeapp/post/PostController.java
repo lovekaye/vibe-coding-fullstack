@@ -20,7 +20,7 @@ public class PostController {
     @GetMapping("/posts")
     public String list(@RequestParam(defaultValue = "1") int page, Model model) {
         int pageSize = 5;
-        List<Post> posts = postService.getPostsPage(page, pageSize);
+        List<Post> posts = postService.getPosts(page, pageSize);
         int totalPages = postService.getTotalPages(pageSize);
 
         // Add attributes for pagination handling in view
@@ -39,20 +39,20 @@ public class PostController {
     @PostMapping("/posts/add")
     public String add(@RequestParam("title") String title,
             @RequestParam("content") String content) {
-        postService.savePost(title, content);
+        postService.save(title, content);
         return "redirect:/posts";
     }
 
     @GetMapping("/posts/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
-        Post post = postService.getPostByNo(no);
+        Post post = postService.getPost(no);
         model.addAttribute("post", post);
         return "post/post_detail";
     }
 
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
-        Post post = postService.getPostByNo(no);
+        Post post = postService.getPost(no);
         model.addAttribute("post", post);
         return "post/post_edit_form";
     }
@@ -61,13 +61,13 @@ public class PostController {
     public String edit(@PathVariable("no") Long no,
             @RequestParam("title") String title,
             @RequestParam("content") String content) {
-        postService.updatePost(no, title, content);
+        postService.update(no, title, content);
         return "redirect:/posts/" + no;
     }
 
     @PostMapping("/posts/{no}/delete")
     public String delete(@PathVariable("no") Long no) {
-        postService.deletePost(no);
+        postService.delete(no);
         return "redirect:/posts";
     }
 }
