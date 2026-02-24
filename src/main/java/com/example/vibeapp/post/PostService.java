@@ -19,21 +19,9 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    @PostConstruct
-    public void init() {
-        for (int i = 1; i <= 10; i++) {
-            postRepository.save(new Post(
-                    (long) i,
-                    "게시글 제목 " + i,
-                    "게시글 내용입니다. " + i,
-                    LocalDateTime.now().minusDays(10 - i),
-                    LocalDateTime.now().minusDays(10 - i),
-                    i * 10));
-        }
-    }
-
     public List<PostListDto> getPosts(int page, int size) {
-        return postRepository.findAll(page, size).stream()
+        int offset = (page - 1) * size;
+        return postRepository.findAll(offset, size).stream()
                 .map(PostListDto::from)
                 .collect(Collectors.toList());
     }
@@ -47,6 +35,7 @@ public class PostService {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         post.setViews(post.getViews() + 1);
+        postRepository.update(post);
         return PostResponseDto.from(post);
     }
 
@@ -56,6 +45,7 @@ public class PostService {
         post.setTitle(dto.title());
         post.setContent(dto.content());
         post.setUpdatedAt(LocalDateTime.now());
+        postRepository.update(post);
     }
 
     public void save(PostCreateDto dto) {

@@ -1,3 +1,21 @@
 spring:
   application:
     name: vibeapp
+  datasource:
+    url: jdbc:h2:file:./data/vibeapp;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.vibeapp.post
+  configuration:
+    map-underscore-to-camel-case: true

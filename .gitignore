@@ -10,3 +10,6 @@ out/
 .settings/
 .classpath
 .project
+
+# H2 Database
+data/
