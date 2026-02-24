@@ -1,0 +1,36 @@
+﻿Starting a Gradle Daemon, 1 busy and 2 incompatible and 1 stopped Daemons could not be reused, use --status for details
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+> Task :resolveMainClassName
+
+> Task :bootRun
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+2026-02-24T15:19:08.934+09:00  INFO 24336 --- [vibeapp] [           main] com.example.vibeapp.VibeApp              : Starting VibeApp using Java 25.0.1 with PID 24336 (D:\git\vibe-coding-fullstack\build\classes\java\main started by 議곗젙??in D:\git\vibe-coding-fullstack)
+2026-02-24T15:19:08.938+09:00  INFO 24336 --- [vibeapp] [           main] com.example.vibeapp.VibeApp              : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T15:19:10.491+09:00  INFO 24336 --- [vibeapp] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-24T15:19:10.516+09:00  INFO 24336 --- [vibeapp] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T15:19:10.516+09:00  INFO 24336 --- [vibeapp] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.36]
+2026-02-24T15:19:10.594+09:00  INFO 24336 --- [vibeapp] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-24T15:19:10.596+09:00  INFO 24336 --- [vibeapp] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1555 ms
+2026-02-24T15:19:10.988+09:00  INFO 24336 --- [vibeapp] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T15:19:11.313+09:00  INFO 24336 --- [vibeapp] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/vibeapp user=SA
+2026-02-24T15:19:11.316+09:00  INFO 24336 --- [vibeapp] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T15:19:11.801+09:00  INFO 24336 --- [vibeapp] [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/vibeapp'
+2026-02-24T15:19:11.925+09:00  INFO 24336 --- [vibeapp] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-24T15:19:11.935+09:00  INFO 24336 --- [vibeapp] [           main] com.example.vibeapp.VibeApp              : Started VibeApp in 3.535 seconds (process running for 3.995)
+2026-02-24T15:19:43.555+09:00  INFO 24336 --- [vibeapp] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T15:19:43.555+09:00  INFO 24336 --- [vibeapp] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T15:19:43.556+09:00  INFO 24336 --- [vibeapp] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+
+> Task :bootRun FAILED
+4 actionable tasks: 3 executed, 1 up-to-date

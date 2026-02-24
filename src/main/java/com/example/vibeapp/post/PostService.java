@@ -7,6 +7,9 @@ import com.example.vibeapp.post.dto.PostUpdateDto;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.transaction.annotation.Transactional;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +49,7 @@ public class PostService {
         return PostResponseDto.from(post, tags);
     }
 
+    @Transactional
     public void update(Long no, PostUpdateDto dto) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
@@ -59,6 +63,7 @@ public class PostService {
         saveTags(no, dto.tags());
     }
 
+    @Transactional
     public void save(PostCreateDto dto) {
         Post post = dto.toEntity();
         post.setCreatedAt(LocalDateTime.now());
@@ -74,18 +79,28 @@ public class PostService {
             return;
         }
 
-        String[] tags = tagsStr.split(",");
-        for (String tag : tags) {
-            String trimmedTag = tag.trim();
-            if (!trimmedTag.isEmpty()) {
-                postTagRepository.save(new PostTag(null, postNo, trimmedTag));
+        try {
+            String[] tags = tagsStr.split(",");
+            for (String tag : tags) {
+                String trimmedTag = tag.trim();
+                if (!trimmedTag.isEmpty()) {
+                    postTagRepository.save(new PostTag(null, postNo, trimmedTag));
+                }
             }
+        } catch (Exception e) {
+            try (PrintWriter out = new PrintWriter(new FileWriter("debug_error.log", true))) {
+                out.println("Error saving tags for postNo: " + postNo);
+                e.printStackTrace(out);
+            } catch (Exception ex) {
+                // ignore
+            }
+            throw e;
         }
     }
 
     public void delete(Long no) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
-        postRepository.delete(post);
+        postRepository.deleteByNo(no);
     }
 }
