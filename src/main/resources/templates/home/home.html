@@ -1,74 +1,391 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Vibe App</title>
-    <style>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Vibe Coding | Experience the Future of Tech</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: '#4c03a0', // Custom color from theme
+                            samsungBlue: '#034EA2',
+                            dark: '#000000',
+                            gray: '#f4f4f4',
+                            text: '#1d1d1d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'none': '0',
+                        'sm': '2px',
+                        'DEFAULT': '4px', // ROUND_FOUR from theme
+                        'md': '4px',
+                        'lg': '4px',
+                        'xl': '4px',
+                        'full': '9999px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style data-purpose="custom-layouts">
         body {
-            font-family: 'Outfit', 'Inter', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            color: #1d1d1d;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            text-align: center;
-            padding: 3rem;
-            border-radius: 1.5rem;
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: fadeIn 1s ease-out;
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
         }
 
-        h1 {
-            font-size: 4rem;
-            margin: 0;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
+        .nav-link:hover {
+            color: #034EA2;
         }
 
-        p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            margin-top: 1rem;
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(244, 244, 244, 1) 100%);
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
+        .samsung-btn {
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .samsung-btn-primary {
+            background-color: #034EA2;
+            color: white;
+        }
+
+        .samsung-btn-primary:hover {
+            background-color: #003d80;
+        }
+
+        .card-shadow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #eee;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 th:text="${message}">Message</h1>
-        <p>Welcome to your minimal Spring Boot application.</p>
-        <div style="margin-top: 2rem;">
-            <a href="/posts"
-                style="display: inline-block; padding: 0.75rem 2rem; background: #818cf8; color: white; text-decoration: none; border-radius: 0.75rem; font-weight: bold; transition: background 0.3s;"
-                onmouseover="this.style.background='#6366f1'" onmouseout="this.style.background='#818cf8'">
-                Go to Post Board
-            </a>
+    <!-- BEGIN: NavigationBar -->
+    <header class="sticky-nav bg-white/95 backdrop-blur-md">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <a class="text-xl font-bold tracking-tight text-brand-dark" data-purpose="logo" href="#">
+                    VIBE <span class="text-brand-samsungBlue">CODING</span>
+                </a>
+            </div>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-10">
+                <a class="nav-link" href="/posts">Posts</a>
+                <a class="nav-link" href="#features">Features</a>
+                <a class="nav-link" href="#services">Services</a>
+                <a class="nav-link" href="#curriculum">Curriculum</a>
+                <a class="nav-link" href="#mentoring">Mentoring</a>
+            </div>
+            <!-- Action Button -->
+            <div class="flex items-center space-x-4">
+                <button class="samsung-btn samsung-btn-primary px-6 py-2 rounded-full text-sm">
+                    Join Now
+                </button>
+                <!-- Search & Profile Icons (Samsung Style) -->
+                <div class="flex space-x-3 text-brand-dark">
+                    <svg class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                    <svg class="w-5 h-5 cursor-pointer" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                        <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                    </svg>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- END: NavigationBar -->
+    <main>
+        <!-- BEGIN: HeroSection -->
+        <section class="relative bg-white overflow-hidden" data-purpose="hero-banner">
+            <div class="max-w-7xl mx-auto px-6 pt-20 pb-24 flex flex-col items-center text-center">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tighter text-brand-dark mb-6">
+                    Experience the Vibe of Coding
+                </h1>
+                <p class="text-lg md:text-xl text-gray-500 max-w-2xl mb-10">
+                    Unlock your potential with premium tech education. Master the latest stacks through immersive
+                    projects and elite mentorship.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
+                    <a href="/posts"
+                        class="samsung-btn samsung-btn-primary px-10 py-4 rounded-full text-base flex items-center justify-center">Get
+                        Started</a>
+                    <button
+                        class="samsung-btn border border-brand-dark px-10 py-4 rounded-full text-base hover:bg-gray-50">Learn
+                        More</button>
+                </div>
+                <!-- Hero Image Container -->
+                <div class="w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl">
+                    <img alt="Modern Coding Environment" class="w-full object-cover h-[400px] md:h-[600px]"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZY4LKgvNNbYeZjyCExyHRfPyDzg2e20xJmd5Mp60w4O4GBbWavqeOpm8Jwr-18xxsubIzjYI__yM5UFe3sacwi5kbN7yKELLbz6za6-Dn6WlGimrCQx4sU7d2ZftbEEOOtK2SjXDs6Bg3ooWph60I7lFXud5B4ycCOFDButUSJJzQSKahE4p4BY9GMvjsG00SOhCJ1gbWypJdaz9PSQYsf2wETEbSOLY3F7TMv0PiqW3OeRgFPAiXPMFDg3I5izF9iSX3OcMIeW8" />
+                </div>
+            </div>
+        </section>
+        <!-- END: HeroSection -->
+        <!-- BEGIN: StatsSection -->
+        <section class="bg-brand-gray border-y border-gray-200" data-purpose="trust-bar">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <p class="text-3xl font-bold text-brand-dark">500+</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Graduates</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-brand-dark">95%</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Satisfaction</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-brand-dark">150+</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Hiring Partners</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-brand-dark">24/7</p>
+                        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: StatsSection -->
+        <!-- BEGIN: FeaturesSection -->
+        <section class="py-24 bg-white" data-purpose="why-vibe-coding" id="features">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Why Vibe Coding?</h2>
+                    <div class="w-16 h-1 bg-brand-samsungBlue mx-auto"></div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Feature 1 -->
+                    <div class="text-center group" data-purpose="feature-card">
+                        <div
+                            class="w-20 h-20 bg-brand-gray rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-samsungBlue/10 transition-colors">
+                            <svg class="w-10 h-10 text-brand-samsungBlue" fill="none" stroke="currentColor"
+                                viewbox="0 0 24 24">
+                                <path
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">1:1 Mentoring</h3>
+                        <p class="text-gray-600 leading-relaxed">Direct guidance from industry experts who have built
+                            world-class systems at leading tech firms.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="text-center group" data-purpose="feature-card">
+                        <div
+                            class="w-20 h-20 bg-brand-gray rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-samsungBlue/10 transition-colors">
+                            <svg class="w-10 h-10 text-brand-samsungBlue" fill="none" stroke="currentColor"
+                                viewbox="0 0 24 24">
+                                <path
+                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Real Projects</h3>
+                        <p class="text-gray-600 leading-relaxed">Go beyond tutorials. Build production-ready
+                            applications that solve real-world business challenges.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="text-center group" data-purpose="feature-card">
+                        <div
+                            class="w-20 h-20 bg-brand-gray rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-samsungBlue/10 transition-colors">
+                            <svg class="w-10 h-10 text-brand-samsungBlue" fill="none" stroke="currentColor"
+                                viewbox="0 0 24 24">
+                                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="1.5"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Latest Tech Stack</h3>
+                        <p class="text-gray-600 leading-relaxed">Stay ahead of the curve with a curriculum focused on
+                            the most in-demand technologies in the industry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: FeaturesSection -->
+        <!-- BEGIN: ServicesSection -->
+        <section class="py-24 bg-brand-gray" data-purpose="services-grid" id="services">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- B2B Solutions -->
+                    <div class="relative group overflow-hidden bg-white card-shadow rounded-lg"
+                        data-purpose="service-card">
+                        <div class="h-80 overflow-hidden">
+                            <img alt="B2B Solutions"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS5ixkFhujiU2SVo_zESX22SnlKhaaMNa7LwMcsEFkIRXPKoqYT22nApc5XJ9iLK_jIjKLufampFk-qt3zN65S_SvgA8YBA4359GZq8VWbgUoCqN87VIuDyufh67JuyFAQijPZxkQAnVeYyBx6rtcZYzvNCAa09P2WYQHGPfUzVAufpncosT_Yqwic8qTVR0r69chsUwxElQTqAeZL5t11bv2jCjFmOQGdyB8xmZi2ga8fXdLMcsfuixWWJ_BraC7OGtPMnZcH3fg" />
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2">B2B Solutions</h3>
+                            <p class="text-gray-500 mb-6">Upskill your engineering team with customized corporate
+                                training programs designed for scaling tech orgs.</p>
+                            <a class="inline-flex items-center text-brand-samsungBlue font-semibold group-hover:underline"
+                                href="#">
+                                Explore Enterprise <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
+                                    viewbox="0 0 24 24">
+                                    <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Career Bootcamp -->
+                    <div class="relative group overflow-hidden bg-white card-shadow rounded-lg"
+                        data-purpose="service-card">
+                        <div class="h-80 overflow-hidden">
+                            <img alt="Career Bootcamp"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBoUS5KGH_APH2TTFNJq_V_b3VPxuT1DiOQN83_gKEDzdw9b0PZB4zQJsiUOAlhe5wdtHyjj3w37ry5qekUZnoD304psFQZT-SlBY4oVu29SHXNc2TXF7SA2HZ3_0nwZbnbcRYOHeOaei1n0W4Q8QIO0Xq0olvc5AuMtUvbaAgbG9506zmu2CBxlQ_kAn7v-fLQqrERsCnntfgpPLbtrRXaaa2VE4M8Y6LKk22Uzd4Om9G8kT0UQsBH2hJ3-KDoLCYED7wnP5qXwo" />
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2">Career Bootcamp</h3>
+                            <p class="text-gray-500 mb-6">Zero to hero path for aspiring developers. Intensive training
+                                with job placement assistance at top firms.</p>
+                            <a class="inline-flex items-center text-brand-samsungBlue font-semibold group-hover:underline"
+                                href="#">
+                                Start Your Journey <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor"
+                                    viewbox="0 0 24 24">
+                                    <path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END: ServicesSection -->
+        <!-- BEGIN: CTABanner -->
+        <section class="bg-brand-dark py-24" data-purpose="cta-bottom">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">Ready to level up your Vibe?</h2>
+                <p class="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">
+                    Join a community of elite developers and start building the future today. No commitments, just
+                    growth.
+                </p>
+                <button
+                    class="samsung-btn samsung-btn-primary px-12 py-5 rounded-full text-lg shadow-xl shadow-brand-samsungBlue/20">
+                    Apply Now
+                </button>
+            </div>
+        </section>
+        <!-- END: CTABanner -->
+    </main>
+    <!-- BEGIN: Footer -->
+    <footer class="bg-brand-dark text-gray-400 pt-20 pb-10 border-t border-gray-800" data-purpose="site-footer">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <!-- Brand & Contact -->
+                <div class="col-span-1">
+                    <a class="text-white text-xl font-bold mb-6 inline-block" href="#">VIBE CODING</a>
+                    <div class="space-y-4 text-sm">
+                        <p>123 Tech Square, Gangnam-gu<br />Seoul, South Korea</p>
+                        <p>Email: contact@vibecoding.com</p>
+                        <p>Phone: +82 2-123-4567</p>
+                    </div>
+                </div>
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Programs</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-white transition-colors" href="#">Web Development</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">AI &amp; Data Science</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Mobile Engineering</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">UI/UX Design</a></li>
+                    </ul>
+                </div>
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a class="hover:text-white transition-colors" href="#">About Us</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Careers</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Newsroom</a></li>
+                        <li><a class="hover:text-white transition-colors" href="#">Affiliates</a></li>
+                    </ul>
+                </div>
+                <!-- Social & Legal -->
+                <div>
+                    <h4 class="text-white font-bold mb-6">Follow Us</h4>
+                    <div class="flex space-x-4 mb-8">
+                        <a class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-samsungBlue transition-colors"
+                            href="#">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-samsungBlue transition-colors"
+                            href="#">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+                                <path
+                                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-samsungBlue transition-colors"
+                            href="#">
+                            <span class="sr-only">Instagram</span>
+                            <svg class="w-4 h-4 fill-current" viewbox="0 0 24 24">
+                                <rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright -->
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>짤 2024 Vibe Coding. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a class="hover:text-white" href="#">Privacy Policy</a>
+                    <a class="hover:text-white" href="#">Terms of Service</a>
+                    <a class="hover:text-white" href="#">Cookies</a>
+                </div>
+            </div>
         </div>
-    </div>
+    </footer>
+    <!-- END: Footer -->
 </body>
 
 </html>
