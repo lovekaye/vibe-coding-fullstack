@@ -23,9 +23,22 @@
 - `java`
 
 ### 4.2. 의존성 (Dependencies)
-- 현재 추가된 외부 의존성 없음 (최소 기능 프로젝트)
+- `org.springframework.boot:spring-boot-starter-web` (웹 MVC 지원)
+- `org.springframework.boot:spring-boot-starter-thymeleaf` (템플릿 엔진)
+- `org.springframework.boot:spring-boot-starter-test` (테스트 지원)
 
-## 5. 설정 및 구조
+## 5. 애플리케이션 구조 및 아키텍처 (도메인 주도 패키지 구조)
 - **환경 설정**: `src/main/resources/application.yml`
-- **핵심 패키지**: `com.example.vibeapp`
-- **애플리케이션 시작 클래스**: `VibeApp.java`
+- **시작 클래스**: `com.example.vibeapp.VibeApp`
+- **핵심 모듈 구조**:
+  - `com.example.vibeapp.home`: 메인 홈 화면 (`HomeController`)
+  - `com.example.vibeapp.post`: 게시판 도메인 (`Post`, `PostController`, `PostService`, `PostRepository`)
+- **뷰 템플릿(Thymeleaf) 경로**:
+  - `src/main/resources/templates/home/` : 홈 뷰 리소스 (`home.html`)
+  - `src/main/resources/templates/post/` : 게시판 뷰 리소스 (`posts.html`, `post_detail.html`, `post_new_form.html`, `post_edit_form.html`)
+
+## 6. 구현 기능 (Features)
+- **게시글 관리 (CRUD)**: 게시글 목록 조회, 상세 조회, 작성, 수정, 삭제 기능 구현
+- **목록 페이징 (Pagination)**: 5개 단위 페이징 처리 및 UI 구현
+- **임시 데이터 저장소**: `ArrayList`를 활용한 In-Memory 방식 레포지토리 운영 (DB 연동 전 단계)
+- **UI 스타일링**: Tailwind CSS (CDN 연동)를 적용한 모던한 프론트엔드 스타일링
