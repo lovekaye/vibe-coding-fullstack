@@ -18,10 +18,10 @@ public class PostRepository {
             post.setNo(nextNo);
             posts.add(post);
         } else {
-            findByNo(post.getNo()).ifPresent(p -> {
+            findByNo(post.getNo()).ifPresentOrElse(p -> {
                 int index = posts.indexOf(p);
                 posts.set(index, post);
-            });
+            }, () -> posts.add(post));
         }
     }
 

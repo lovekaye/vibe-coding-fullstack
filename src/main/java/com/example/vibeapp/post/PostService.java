@@ -1,10 +1,15 @@
 package com.example.vibeapp.post;
 
+import com.example.vibeapp.post.dto.PostCreateDto;
+import com.example.vibeapp.post.dto.PostListDto;
+import com.example.vibeapp.post.dto.PostResponseDto;
+import com.example.vibeapp.post.dto.PostUpdateDto;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -27,8 +32,10 @@ public class PostService {
         }
     }
 
-    public List<Post> getPosts(int page, int size) {
-        return postRepository.findAll(page, size);
+    public List<PostListDto> getPosts(int page, int size) {
+        return postRepository.findAll(page, size).stream()
+                .map(PostListDto::from)
+                .collect(Collectors.toList());
     }
 
     public int getTotalPages(int size) {
@@ -36,25 +43,23 @@ public class PostService {
         return (int) Math.ceil((double) total / size);
     }
 
-    public Post getPost(Long no) {
+    public PostResponseDto getPost(Long no) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
         post.setViews(post.getViews() + 1);
-        return post;
+        return PostResponseDto.from(post);
     }
 
-    public void update(Long no, String title, String content) {
+    public void update(Long no, PostUpdateDto dto) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
-        post.setTitle(title);
-        post.setContent(content);
+        post.setTitle(dto.getTitle());
+        post.setContent(dto.getContent());
         post.setUpdatedAt(LocalDateTime.now());
     }
 
-    public void save(String title, String content) {
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContent(content);
+    public void save(PostCreateDto dto) {
+        Post post = dto.toEntity();
         post.setCreatedAt(LocalDateTime.now());
         post.setUpdatedAt(null);
         post.setViews(0);

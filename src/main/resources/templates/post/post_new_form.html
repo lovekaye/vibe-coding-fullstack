@@ -45,19 +45,24 @@
         </div>
 
         <div class="glass-card shadow-2xl rounded-2xl p-8">
-            <form th:action="@{/posts/add}" method="post" class="space-y-6">
+            <form th:action="@{/posts/add}" th:object="${postCreateDto}" method="post" class="space-y-6">
                 <div>
                     <label for="title"
                         class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Title</label>
-                    <input type="text" id="title" name="title" required placeholder="Enter post title"
-                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                    <input type="text" id="title" th:field="*{title}" placeholder="Enter post title"
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold"
+                        th:classappend="${#fields.hasErrors('title')} ? 'border-red-500' : ''">
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-red-500 text-sm mt-1"></p>
                 </div>
 
                 <div>
                     <label for="content"
                         class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Content</label>
-                    <textarea id="content" name="content" rows="8" required placeholder="What's on your mind?"
-                        class="w-full px-4 py-3 rounded-xl input-field transition-all leading-relaxed"></textarea>
+                    <textarea id="content" th:field="*{content}" rows="8" placeholder="What's on your mind?"
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all leading-relaxed"
+                        th:classappend="${#fields.hasErrors('content')} ? 'border-red-500' : ''"></textarea>
+                    <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-red-500 text-sm mt-1">
+                    </p>
                 </div>
 
                 <div class="flex justify-end gap-4 pt-4 border-t border-slate-700/50">
