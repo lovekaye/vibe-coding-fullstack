@@ -28,12 +28,12 @@ public class PostController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
 
-        return "posts";
+        return "post/posts";
     }
 
     @GetMapping("/posts/new")
     public String newForm() {
-        return "post_new_form";
+        return "post/post_new_form";
     }
 
     @PostMapping("/posts/add")
@@ -47,14 +47,14 @@ public class PostController {
     public String detail(@PathVariable("no") Long no, Model model) {
         Post post = postService.getPostByNo(no);
         model.addAttribute("post", post);
-        return "post_detail";
+        return "post/post_detail";
     }
 
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
         Post post = postService.getPostByNo(no);
         model.addAttribute("post", post);
-        return "post_edit_form";
+        return "post/post_edit_form";
     }
 
     @PostMapping("/posts/{no}/save")
