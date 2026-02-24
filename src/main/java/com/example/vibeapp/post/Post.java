@@ -1,4 +1,4 @@
-package com.example.vibeapp;
+package com.example.vibeapp.post;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +13,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long no, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt, Integer views) {
+    public Post(Long no, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt,
+            Integer views) {
         this.no = no;
         this.title = title;
         this.content = content;
