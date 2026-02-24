@@ -33,6 +33,15 @@ public class PostService {
         return posts;
     }
 
+    public List<Post> getPostsPage(int page, int size) {
+        return postRepository.findPage(page, size);
+    }
+
+    public int getTotalPages(int size) {
+        int total = postRepository.getTotalCount();
+        return (int) Math.ceil((double) total / size);
+    }
+
     public Post getPostByNo(Long no) {
         Post post = postRepository.findByNo(no)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));

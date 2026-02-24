@@ -68,6 +68,30 @@
             </table>
         </div>
 
+        <div class="mt-8 flex justify-center gap-2">
+            <!-- Previous Button -->
+            <a th:if="${currentPage > 1}" th:href="@{/posts(page=${currentPage - 1})}"
+                class="px-4 py-2 bg-slate-800 hover:bg-indigo-600 text-white text-sm font-bold rounded-lg border border-slate-700 transition-all">
+                &laquo; Prev
+            </a>
+
+            <!-- Page Numbers -->
+            <th:block th:if="${totalPages > 0}">
+                <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+                    <a th:href="@{/posts(page=${pageNum})}" th:text="${pageNum}"
+                        th:classappend="${pageNum == currentPage} ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'"
+                        class="px-4 py-2 text-sm font-bold rounded-lg border transition-all">
+                    </a>
+                </th:block>
+            </th:block>
+
+            <!-- Next Button -->
+            <a th:if="${currentPage < totalPages}" th:href="@{/posts(page=${currentPage + 1})}"
+                class="px-4 py-2 bg-slate-800 hover:bg-indigo-600 text-white text-sm font-bold rounded-lg border border-slate-700 transition-all">
+                Next &raquo;
+            </a>
+        </div>
+
         <div class="mt-8 text-center">
             <a href="/"
                 class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center justify-center gap-2">

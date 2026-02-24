@@ -38,4 +38,21 @@ public class PostRepository {
     public void delete(Post post) {
         posts.removeIf(p -> p.getNo().equals(post.getNo()));
     }
+
+    public int getTotalCount() {
+        return posts.size();
+    }
+
+    public List<Post> findPage(int page, int size) {
+        List<Post> reversed = new ArrayList<>(posts);
+        java.util.Collections.reverse(reversed);
+
+        int start = (page - 1) * size;
+        int end = Math.min(start + size, reversed.size());
+
+        if (start > reversed.size()) {
+            return new ArrayList<>();
+        }
+        return reversed.subList(start, end);
+    }
 }
