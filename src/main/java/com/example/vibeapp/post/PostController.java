@@ -40,7 +40,7 @@ public class PostController {
 
     @GetMapping("/posts/new")
     public String newForm(Model model) {
-        model.addAttribute("postCreateDto", new PostCreateDto());
+        model.addAttribute("postCreateDto", new PostCreateDto("", ""));
         return "post/post_new_form";
     }
 
@@ -63,9 +63,7 @@ public class PostController {
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
         PostResponseDto postDetail = postService.getPost(no);
-        PostUpdateDto dto = new PostUpdateDto();
-        dto.setTitle(postDetail.getTitle());
-        dto.setContent(postDetail.getContent());
+        PostUpdateDto dto = new PostUpdateDto(postDetail.title(), postDetail.content());
 
         model.addAttribute("postUpdateDto", dto);
         model.addAttribute("no", no);
