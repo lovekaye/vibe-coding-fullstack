@@ -37,10 +37,19 @@
                 </div>
                 <div class="text-right text-sm text-slate-400">
                     <p class="mb-2" th:text="'Views: ' + ${post.views}">Views: 0</p>
-                    <a th:href="@{/posts/{no}/edit(no=${post.no})}"
-                        class="inline-block px-4 py-2 bg-slate-800 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg border border-slate-700 transition-all">
-                        수정
-                    </a>
+                    <div class="flex gap-2 justify-end">
+                        <a th:href="@{/posts/{no}/edit(no=${post.no})}"
+                            class="inline-block px-4 py-2 bg-slate-800 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg border border-slate-700 transition-all">
+                            수정
+                        </a>
+                        <form th:action="@{/posts/{no}/delete(no=${post.no})}" method="post"
+                            onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                            <button type="submit"
+                                class="inline-block px-4 py-2 bg-slate-800 hover:bg-red-600 text-white text-xs font-bold rounded-lg border border-slate-700 transition-all">
+                                삭제
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

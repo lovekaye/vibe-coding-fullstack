@@ -34,4 +34,8 @@ public class PostRepository {
                 .filter(post -> post.getNo().equals(no))
                 .findFirst();
     }
+
+    public void delete(Post post) {
+        posts.removeIf(p -> p.getNo().equals(post.getNo()));
+    }
 }

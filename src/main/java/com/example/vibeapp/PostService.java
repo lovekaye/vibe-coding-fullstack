@@ -23,8 +23,7 @@ public class PostService {
                     "게시글 내용입니다. " + i,
                     LocalDateTime.now().minusDays(10 - i),
                     LocalDateTime.now().minusDays(10 - i),
-                    i * 10
-            ));
+                    i * 10));
         }
     }
 
@@ -57,5 +56,11 @@ public class PostService {
         post.setUpdatedAt(null);
         post.setViews(0);
         postRepository.save(post);
+    }
+
+    public void deletePost(Long no) {
+        Post post = postRepository.findByNo(no)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post number: " + no));
+        postRepository.delete(post);
     }
 }
