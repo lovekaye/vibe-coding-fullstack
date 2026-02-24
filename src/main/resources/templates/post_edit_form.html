@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:text="'Edit: ' + ${post.title} + ' | Vibe Coding'">Edit Post | Vibe Coding</title>
+    <title>Edit Post | Vibe Coding</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -25,10 +25,16 @@
             color: #f8fafc;
         }
 
-        .input-field:focus {
+        .input-field:focus:not([readonly]) {
             border-color: #818cf8;
             outline: none;
             box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+        }
+
+        .input-field[readonly] {
+            background: rgba(15, 23, 42, 0.3);
+            color: #94a3b8;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -36,39 +42,67 @@
 <body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-3xl mx-auto">
         <div class="mb-8">
-            <a th:href="@{/posts/{no}(no=${post.no})}"
-                class="text-indigo-400 hover:text-indigo-300 font-medium flex items-center gap-2 mb-6 transition-colors">
-                <span>&larr;</span> Cancel and Go Back
-            </a>
             <h1 class="text-4xl font-extrabold tracking-tight text-white">Edit Post</h1>
             <p class="text-slate-400 mt-2">Update the information for this discussion.</p>
         </div>
 
         <div class="glass-card shadow-2xl rounded-2xl p-8">
-            <form th:action="@{/posts/{no}/edit(no=${post.no})}" method="post" class="space-y-6">
+            <form th:action="@{/posts/{no}/save(no=${post.no})}" method="post" class="space-y-6">
+                <!-- No (read-only) -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">번호</label>
+                    <input type="text" th:value="${post.no}" readonly
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                </div>
+
+                <!-- Title -->
                 <div>
                     <label for="title"
-                        class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Title</label>
+                        class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">제목</label>
                     <input type="text" id="title" name="title" th:value="${post.title}" required
                         class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
                 </div>
 
+                <!-- Content -->
                 <div>
                     <label for="content"
-                        class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Content</label>
+                        class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">내용</label>
                     <textarea id="content" name="content" rows="8" required
                         class="w-full px-4 py-3 rounded-xl input-field transition-all leading-relaxed"
                         th:text="${post.content}"></textarea>
                 </div>
 
+                <!-- Created At (read-only) -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">생성일</label>
+                    <input type="text" th:value="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}" readonly
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                </div>
+
+                <!-- Updated At (read-only) -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">수정일</label>
+                    <input type="text"
+                        th:value="${post.updatedAt != null ? #temporals.format(post.updatedAt, 'yyyy-MM-dd') : ''}"
+                        readonly class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                </div>
+
+                <!-- Views (read-only) -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">조회수</label>
+                    <input type="text" th:value="${post.views}" readonly
+                        class="w-full px-4 py-3 rounded-xl input-field transition-all font-semibold">
+                </div>
+
+                <!-- Buttons -->
                 <div class="flex justify-end gap-4 pt-4 border-t border-slate-700/50">
                     <a th:href="@{/posts/{no}(no=${post.no})}"
                         class="px-6 py-3 rounded-xl text-sm font-bold text-slate-400 hover:text-white transition-colors">
-                        Cancel
+                        취소
                     </a>
                     <button type="submit"
                         class="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5">
-                        Save Changes
+                        저장
                     </button>
                 </div>
             </form>
