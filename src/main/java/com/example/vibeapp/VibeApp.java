@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 @SpringBootApplication
+@EnableTransactionManagement
 @MapperScan("com.example.vibeapp")
 @RestController
 @RequestMapping("/api")
